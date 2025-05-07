@@ -44,16 +44,16 @@ const About = () => {
         
         <div className="grid md:grid-cols-2 gap-12 mt-12">
           <div className="animate-slide-up">
-            <p className="text-gray-300 text-lg mb-6 text-justify">
+            <p className="text-gray-300 text-lg mb-6">
               I'm Keshav Arri, an <span className="text-primary font-semibold">AI/ML Engineer & Data Engineer</span> who thrives at the intersection of cutting-edge tech and real-world impact.
             </p>
-            <p className="text-gray-400 mb-6 text-justify">
+            <p className="text-gray-400 mb-6">
             Currently pursuing my Master's in Applied Computing with an AI specialization at the University of Windsor, I bring a strong foundation in software engineering, coupled with hands-on experience in designing scalable, production-grade AI systems.
             </p>
-            <p className="text-gray-400 mb-8 text-justify">
+            <p className="text-gray-400 mb-8">
             At Slideoo, I slashed presentation creation time by 90% with my multi-LLM architecture. I'm obsessed with pushing boundaries — whether it's orchestrating agentic AI systems, engineering RAG solutions that transform how we access information, or crafting APIs that scale effortlessly across cloud platforms.
             </p>
-            <p className="text-gray-400 mb-8 text-justify">
+            <p className="text-gray-400 mb-8">
             I approach problems with a product mindset, focusing on measurable impact, stakeholder alignment, and operational efficiency — whether it's driving innovation or delivering business-ready solutions.
             </p>
             
