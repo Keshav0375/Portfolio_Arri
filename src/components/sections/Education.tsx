@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, MapPin, Award } from 'lucide-react';
+import { Calendar, MapPin, Award, GraduationCap } from 'lucide-react';
 import { education } from '../../data/education';
 
 const Education = () => {
@@ -13,99 +13,90 @@ const Education = () => {
       <div className="section-container relative z-10">
         <h2 className="section-title">Education</h2>
         
-        <div className="mt-12 relative">
-          {/* Vertical timeline line */}
-          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-gray-700 transform md:translate-x-px"></div>
-          
+        <div className="mt-12 space-y-8">
           {education.map((edu, index) => (
             <div 
               key={edu.id} 
-              className={`relative mb-12 ${
-                index % 2 === 0 ? 'md:ml-auto md:pl-12 md:pr-0 md:text-left' : 'md:mr-auto md:pr-12 md:pl-0 md:text-right'
-              } pl-12 md:w-1/2 animate-slide-up`}
+              className="relative animate-slide-up"
               style={{ animationDelay: `${index * 0.2}s` }}
             >
-              {/* Timeline dot */}
-              <div 
-                className={`absolute top-0 w-6 h-6 rounded-full bg-primary left-0 md:left-auto ${
-                  index % 2 === 0 ? 'md:-left-3' : 'md:-right-3'
-                }`}
-                style={{ boxShadow: '0 0 10px rgba(108, 92, 231, 0.5)' }}
-              ></div>
-              
-              <div className="glass-card">
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h3 className="text-xl font-semibold text-white">{edu.degree}</h3>
-                    <div className="text-primary">{edu.institution}</div>
-                  </div>
-                  <div className="bg-dark-300 px-3 py-1 rounded text-gray-400 text-sm">
-                    {edu.period}
-                  </div>
+              {/* Left-aligned timeline with dot */}
+              <div className="flex">
+                <div className="flex flex-col items-center mr-6">
+                  <div 
+                    className="w-6 h-6 rounded-full bg-primary flex-shrink-0"
+                    style={{ boxShadow: '0 0 10px rgba(108, 92, 231, 0.5)' }}
+                  ></div>
+                  {index < education.length - 1 && (
+                    <div className="w-0.5 h-full bg-gray-700 mt-2 min-h-[100px]"></div>
+                  )}
                 </div>
                 
-                <div className={`flex items-center text-gray-400 text-sm mb-4 ${
-                  index % 2 !== 0 ? 'md:justify-end' : ''
-                }`}>
-                  <MapPin size={16} className={index % 2 !== 0 ? 'md:order-2 md:ml-2' : 'mr-2'} />
-                  <span>{edu.location}</span>
-                </div>
-                
-                <p className="text-gray-300 mb-5">{edu.description}</p>
-                
-                {edu.courses && (
-                  <div className="mb-4">
-                    <h4 className={`text-white font-semibold mb-2 ${
-                      index % 2 !== 0 ? 'md:text-right' : ''
-                    }`}>
-                      Key Courses
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {edu.courses.map((course, idx) => (
-                        <span 
-                          key={idx} 
-                          className="bg-dark-300 px-2 py-1 rounded text-gray-300 text-xs"
-                        >
-                          {course}
-                        </span>
-                      ))}
+                <div className="glass-card flex-1">
+                  {/* Header */}
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-4">
+                    <div className="flex-1">
+                      <h3 className="text-xl font-semibold text-white mb-2">{edu.degree}</h3>
+                      <div className="text-primary text-lg mb-2">{edu.institution}</div>
+                    </div>
+                    <div className="bg-dark-300 px-3 py-1 rounded text-gray-400 text-sm mt-2 sm:mt-0 self-start">
+                      {edu.period}
                     </div>
                   </div>
-                )}
-                
-                {edu.achievements && (
-                  <div>
-                    <h4 className={`text-white font-semibold mb-2 ${
-                      index % 2 !== 0 ? 'md:text-right' : ''
-                    }`}>
-                      Achievements
-                    </h4>
-                    <ul className={`space-y-1 ${
-                      index % 2 !== 0 ? 'md:text-right' : ''
-                    }`}>
-                      {edu.achievements.map((achievement, idx) => (
-                        <li key={idx} className="flex items-start">
-                          <span className={`text-primary mr-2 ${
-                            index % 2 !== 0 ? 'md:hidden' : ''
-                          }`}>
-                            •
-                          </span>
-                          <span className="text-gray-300">{achievement}</span>
-                          <span className={`text-primary ml-2 ${
-                            index % 2 !== 0 ? 'md:inline-block' : 'hidden'
-                          }`}>
-                            •
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
+                  
+                  {/* Location */}
+                  <div className="flex items-center text-gray-400 text-sm mb-4">
+                    <MapPin size={16} className="mr-2" />
+                    <span>{edu.location}</span>
                   </div>
-                )}
+                  
+                  {/* Description */}
+                  <p className="text-gray-300 mb-5">{edu.description}</p>
+                  
+                  {/* Courses */}
+                  {edu.courses && (
+                    <div className="mb-4">
+                      <h4 className="text-white font-semibold mb-3 flex items-center">
+                        <GraduationCap size={18} className="mr-2 text-primary" />
+                        Key Courses
+                      </h4>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+                        {edu.courses.map((course, idx) => (
+                          <span 
+                            key={idx} 
+                            className="bg-dark-300 px-3 py-1 rounded text-gray-300 text-xs text-center"
+                          >
+                            {course}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* Achievements */}
+                  {edu.achievements && (
+                    <div>
+                      <h4 className="text-white font-semibold mb-3 flex items-center">
+                        <Award size={18} className="mr-2 text-primary" />
+                        Achievements
+                      </h4>
+                      <ul className="space-y-2">
+                        {edu.achievements.map((achievement, idx) => (
+                          <li key={idx} className="flex items-start">
+                            <span className="text-primary mr-3 mt-1 flex-shrink-0">•</span>
+                            <span className="text-gray-300">{achievement}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           ))}
         </div>
         
+        {/* Bottom section */}
         <div className="mt-16 text-center">
           <div className="glass-card inline-block">
             <div className="flex flex-col sm:flex-row items-center">
