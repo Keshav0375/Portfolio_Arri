@@ -1,5 +1,5 @@
 import React from 'react';
-import { Brain, Code, Bot, Database } from 'lucide-react';
+import { Brain, Code, Bot, Database, Download, Eye } from 'lucide-react';
 
 const About = () => {
   const stats = [
@@ -31,6 +31,26 @@ const About = () => {
       description: 'Custom machine learning models, computer vision solutions, and NLP systems using PyTorch and TensorFlow.'
     }
   ];
+
+  // Google Drive direct download link
+  const RESUME_DOWNLOAD_URL = "https://drive.google.com/uc?export=download&id=17-e7V0hIiQdCqkKfPrroo_NIyMX_xqfW";
+  const RESUME_VIEW_URL = "https://drive.google.com/file/d/17-e7V0hIiQdCqkKfPrroo_NIyMX_xqfW/view?usp=sharing";
+
+  const handleResumeDownload = () => {
+    // Create a link element and trigger download
+    const link = document.createElement('a');
+    link.href = RESUME_DOWNLOAD_URL;
+    link.download = 'Keshav_Arri_Resume.pdf';
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleViewResume = () => {
+    window.open(RESUME_VIEW_URL, '_blank', 'noopener,noreferrer');
+  };
   
   return (
     <section id="about" className="py-20 bg-dark-400 relative">
@@ -83,15 +103,30 @@ const About = () => {
               ))}
             </div>
             
-            <div className="mt-8">
-              <a 
-                href="/Resume/Keshav_Arri.pdf" 
-                className="neon-button inline-flex items-center"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Download Resume
-              </a>
+            <div className="mt-8 space-y-4">
+              <div className="flex flex-col sm:flex-row gap-3">
+                <button 
+                  onClick={handleResumeDownload}
+                  className="neon-button inline-flex items-center justify-center px-6 py-3"
+                >
+                  <Download size={18} className="mr-2" />
+                  Download Resume
+                </button>
+                
+                <button 
+                  onClick={handleViewResume}
+                  className="bg-primary/10 border border-primary/30 text-primary px-6 py-3 rounded 
+                           transition-all duration-300 hover:bg-primary/20 hover:border-primary/50
+                           inline-flex items-center justify-center"
+                >
+                  <Eye size={18} className="mr-2" />
+                  View Resume
+                </button>
+              </div>
+              
+              <p className="text-gray-500 text-sm">
+                Resume hosted securely on Google Drive
+              </p>
             </div>
           </div>
         </div>
