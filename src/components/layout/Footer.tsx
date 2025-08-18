@@ -34,15 +34,7 @@ const Footer = () => {
               >
                 <Linkedin size={20} />
               </a>
-              <a 
-                href="https://twitter.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-primary transition-colors duration-300"
-                aria-label="Twitter"
-              >
-                <Twitter size={20} />
-              </a>
+              
               <a 
                 href="mailto:arri@uwindsor.ca" 
                 className="text-gray-400 hover:text-primary transition-colors duration-300"

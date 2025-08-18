@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Github, Linkedin, Twitter } from 'lucide-react';
+import { Menu, X, Github, Linkedin } from 'lucide-react';
+import UWindsor from "../../logos/file.svg";
 
 const navLinks = [
   { name: 'Home', href: '#home' },
@@ -10,6 +11,17 @@ const navLinks = [
   { name: 'Education', href: '#education' },
   { name: 'Contact', href: '#contact' },
 ];
+
+// University of Windsor Logo Component
+const UWindsorLogo = ({ size = 20, className = "" }: { size?: number; className?: string }) => (
+  <img 
+    src={UWindsor} 
+    alt="University of Windsor" 
+    width={size} 
+    height={size} 
+    className={`${className} object-contain`}
+  />
+);
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -70,9 +82,10 @@ const Navbar = () => {
                className="text-gray-400 hover:text-primary transition-colors duration-300">
               <Linkedin size={20} />
             </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" 
-               className="text-gray-400 hover:text-primary transition-colors duration-300">
-              <Twitter size={20} />
+            <a href="https://www.uwindsor.ca" target="_blank" rel="noopener noreferrer" 
+               className="text-gray-400 hover:text-primary transition-colors duration-300"
+               title="University of Windsor">
+              <UWindsorLogo size={20} />
             </a>
           </div>
           
@@ -109,9 +122,10 @@ const Navbar = () => {
                className="text-gray-400 hover:text-primary transition-colors duration-300">
               <Linkedin size={20} />
             </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" 
-               className="text-gray-400 hover:text-primary transition-colors duration-300">
-              <Twitter size={20} />
+            <a href="https://www.uwindsor.ca" target="_blank" rel="noopener noreferrer" 
+               className="text-gray-400 hover:text-primary transition-colors duration-300"
+               title="University of Windsor">
+              <UWindsorLogo size={20} />
             </a>
           </div>
         </div>

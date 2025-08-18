@@ -1,71 +1,178 @@
-interface Project {
-  id: number;
-  title: string;
+// Premium projects data with enhanced metadata
+export interface Project {
+  id: string;
+  name: string;
   description: string;
+  shortDescription: string;
   image: string;
-  tags: string[];
+  techStack: string[];
+  category: 'AI/ML' | 'Full-Stack' | 'Systems' | 'Tools';
+  status: 'Live' | 'Development' | 'Completed';
+  impact?: string;
+  metrics?: string;
   demoLink?: string;
   codeLink?: string;
-  details: string;
+  featured?: boolean;
+  gradient: string;
+  accentColor: string;
+  iconEmoji: string;
+  complexity: 'Advanced' | 'Expert' | 'Professional';
+  year: string;
 }
 
-export const projects = [
+export const projects: Project[] = [
+  
   {
-    id: 1,
-    title: "Reelify AI",
-    description: "AI-Powered Video Creation Engine with Multi-Modal Generation",
-    image: "https://images.pexels.com/photos/2047905/pexels-photo-2047905.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    tags: ["Python", "DALL·E 3", "ElevenLabs API", "React", "MoviePy", "CrewAI", "OpenAI"    ],
-    demoLink: "https://reelify.ai",
-    codeLink: "https://github.com/Keshav0375/reelify-ai",
-    details: "Architected a comprehensive video generation platform leveraging DALL·E 3, Claude, and ElevenLabs APIs to automate content creation workflows. Implemented mathematically optimized canvas rendering with dynamic prompt engineering that improved rendering quality by 40%. Incorporated cross-language support (5+ languages) and automated voiceover synchronization resulting in 50% higher user retention and dramatically reduced video production time from hours to minutes."
+    id: 'data-dialect',
+    name: 'Data Dialect',
+    description: 'Natural Language Database Interface with Advanced NL2SQL Conversion. Implemented an advanced NL2SQL conversion system using LangChain, LangSmith, and ChromaDB.',
+    shortDescription: 'Talk to any database using natural language queries',
+    image: 'https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    techStack: ['Python', 'LangChain', 'LangSmith', 'ChromaDB', 'FastAPI', 'SQL', 'Few Shot Learning'],
+    category: 'AI/ML',
+    status: 'Completed',
+    impact: '65% faster database queries',
+    metrics: '92% query accuracy • Enterprise-grade security',
+    codeLink: 'https://github.com/Keshav0375/data-dialect',
+    gradient: 'from-blue-600 via-indigo-600 to-purple-600',
+    accentColor: '#3b82f6',
+    iconEmoji: '🗃️',
+    complexity: 'Expert',
+    year: '2024'
   },
   {
-    id: 2,
-    title: "JobFit Crafter",
-    description: "Smart ATS Resume Optimization Platform with Interview Preparation",
-    image: "https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    tags: ["Python", "NLP", "LangChain", "React", "OpenAI", "Claude", "FastAPI"],
-    demoLink: "https://jobfit-crafter.vercel.app",
-    codeLink: "https://github.com/Keshav0375/jobfit-crafter",
-    details: "Developed an innovative platform that analyzes resumes against job descriptions using advanced NLP techniques, achieving 85% accuracy in ATS compatibility scoring. Engineered resume optimization workflows with customized technical and non-technical interview question generation for comprehensive job preparation. Implemented vector similarity scoring between skills and job requirements resulting in a 40% improvement in candidate-job matching and a 30% increase in interview success rates."
+    id: 'storm-api',
+    name: 'Stanford STORM API Wrapper',
+    description: 'FastAPI Wrapper for Stanford\'s Research-Grade Wiki Generation Pipeline. Architected a production-ready API wrapper around Stanford\'s STORM research pipeline.',
+    shortDescription: 'Production-ready API for research-grade wiki article generation',
+    image: 'https://images.pexels.com/photos/7014337/pexels-photo-7014337.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    techStack: ['Python', 'FastAPI', 'OpenAI', 'Docker', 'STORM', 'Streaming Response'],
+    category: 'AI/ML',
+    status: 'Live',
+    impact: '40% faster article generation',
+    metrics: '99.9% availability • Real-time streaming',
+    demoLink: 'https://storm-api-demo.vercel.app',
+    codeLink: 'https://github.com/Keshav0375/Stanford_Storm_FastAPI_wrapper',
+    gradient: 'from-orange-600 via-red-600 to-pink-600',
+    accentColor: '#f59e0b',
+    iconEmoji: '📚',
+    complexity: 'Professional',
+    year: '2024'
   },
   {
-    id: 3,
-    title: "Data Dialect",
-    description: "Natural Language Database Interface with Advanced NL2SQL Conversion",
-    image: "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    tags: ["Python", "LangChain", "LangSmith", "ChromaDB", "FastAPI", "SQL", "Few Shot Learning"],
-    codeLink: "https://github.com/Keshav0375/data-dialect",
-    details: "Implemented an advanced NL2SQL conversion system using LangChain, LangSmith, and ChromaDB with few-shot learning techniques that achieved 92% accuracy in query translation. Engineered dynamic table selection algorithms and example-based configuration for seamless database interactions across multiple schemas. Created an intuitive natural language interface that reduced database query time by 65% for non-technical users while maintaining enterprise-grade security protocols."
+    id: 'edumetrics',
+    name: 'EduMetrics',
+    description: 'Web Analytics Platform built with React.js and Spring Boot. Automates extraction of course data from multiple platforms using Java and Selenium with advanced data structures.',
+    shortDescription: 'Course discovery platform with intelligent recommendations',
+    image: 'https://images.pexels.com/photos/6770610/pexels-photo-6770610.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    techStack: ['Java', 'React.js', 'Spring Boot', 'MySQL', 'REST API', 'Data Structures & Algorithms'],
+    category: 'Full-Stack',
+    status: 'Completed',
+    impact: 'Intelligent content aggregation',
+    metrics: 'Multi-platform scraping • Advanced indexing',
+    codeLink: 'https://github.com/Keshav0375/EduMetrics',
+    gradient: 'from-green-600 via-emerald-600 to-teal-600',
+    accentColor: '#059669',
+    iconEmoji: '🎓',
+    complexity: 'Advanced',
+    year: '2023'
   },
   {
-    id: 4,
-    title: "STORM API",
-    description: "FastAPI Wrapper for Stanford's Research-Grade Wiki Generation Pipeline",
-    image: "https://images.pexels.com/photos/7014337/pexels-photo-7014337.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    tags: ["Python", "FastAPI", "OpenAI", "Docker", "STORM", "Streaming Response"],
-    demoLink: "https://storm-api-demo.vercel.app",
-    codeLink: "https://github.com/Keshav0375/Stanford_Storm_FastAPI_wrapper",
-    details: "Architected a production-ready API wrapper around Stanford's STORM research pipeline that enables programmatic generation of wiki-style articles with research-grade accuracy. Implemented real-time content streaming with dynamic word generation to enhance user experience. Engineered a flexible Docker-based architecture supporting multiple LLM providers (OpenAI, Azure) and search engines (Bing, Brave, Tavily) with seamless failover mechanisms, resulting in 99.9% availability and 40% faster article generation compared to the original pipeline."
+    id: 'distributed-file-system',
+    name: 'Distributed File System',
+    description: 'Advanced distributed file system implementation using socket programming in C/C++. Built with fault tolerance, replication, and efficient data distribution mechanisms.',
+    shortDescription: 'High-performance distributed storage with socket programming',
+    image: 'https://images.pexels.com/photos/325153/pexels-photo-325153.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    techStack: ['C/C++', 'Socket Programming', 'Linux', 'Distributed Systems', 'Network Programming'],
+    category: 'Systems',
+    status: 'Completed',
+    impact: 'Fault-tolerant architecture',
+    metrics: 'Multi-node replication • High availability',
+    codeLink: 'https://github.com/Keshav0375/distributed-fs',
+    gradient: 'from-gray-600 via-slate-600 to-zinc-600',
+    accentColor: '#6b7280',
+    iconEmoji: '🖥️',
+    complexity: 'Expert',
+    year: '2023'
   },
   {
-    id: 5,
-    title: "Multi-Modal RAG System",
-    description: "Enterprise Document Analysis Platform with PDF, Image, and Text Processing",
-    image: "https://images.pexels.com/photos/325153/pexels-photo-325153.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    tags: ["Python", "LangChain", "Pinecone", "GPT-4o", "OCR", "FastAPI"],
-    demoLink: "https://rag-demo.example.com",
-    codeLink: "https://github.com/Keshav0375/multimodal-rag",
-    details: "Built an advanced Retrieval Augmented Generation system capable of processing PDF, image, and text documents with 95% extraction accuracy using custom OCR pipelines. Implemented hybrid vector search using Pinecone with semantic chunking algorithms that improved retrieval relevance by 60%. Designed dynamic prompt engineering workflows with context management that reduced hallucinations by 80% and enabled enterprise-scale document processing with terabyte-level data handling capabilities."
+    id: 'walmart-prediction',
+    name: 'Walmart Hierarchical Prediction',
+    description: 'Advanced machine learning model for hierarchical sales forecasting using deep learning techniques. Implemented multi-level prediction with ensemble methods.',
+    shortDescription: 'ML-powered sales forecasting with hierarchical prediction models',
+    image: 'https://images.pexels.com/photos/6863183/pexels-photo-6863183.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    techStack: ['Python', 'PyTorch', 'Scikit-learn', 'Pandas', 'Time Series', 'Deep Learning'],
+    category: 'AI/ML',
+    status: 'Completed',
+    impact: 'Improved forecast accuracy',
+    metrics: '15% better predictions • Multi-level hierarchy',
+    codeLink: 'https://github.com/Keshav0375/walmart-forecasting',
+    gradient: 'from-yellow-600 via-amber-600 to-orange-600',
+    accentColor: '#f59e0b',
+    iconEmoji: '📊',
+    complexity: 'Advanced',
+    year: '2023'
   },
   {
-    id: 6,
-    title: "EduMetrics",
-    description: "Web Analytics Platform made using Reactjs and Springboot",
-    image: "https://images.pexels.com/photos/6770610/pexels-photo-6770610.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    tags: ["Java", "Reactjs", "Springboot", "MySQL", "REST API", "Data Structure & Algorithms"],
-    codeLink: "https://github.com/Keshav0375/EduMetrics",
-    details: "The EduMetrics Course Scraping Project automates extraction of course data from multiple platforms using Java and Selenium. It employs advanced data structures like Trie, AVL trees, and ConcurrentHashMap for efficient storage, indexing, and concurrency, enabling intelligent content aggregation, URL deduplication, and keyword-based search within a scalable academic recommendation framework."
-  }
+    id: 'agentic-iq',
+    name: 'AgenticIQ: AI Brain Buddy',
+    description: 'Personal AI-powered assistant that learns your patterns and preferences. Built with advanced agentic AI capabilities for personalized task management and decision support.',
+    shortDescription: 'Your personal AI-powered brain buddy for enhanced productivity',
+    image: 'https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    techStack: ['Python', 'LangGraph', 'Vector DB', 'OpenAI', 'FastAPI', 'React', 'Agentic AI'],
+    category: 'AI/ML',
+    status: 'Development',
+    impact: 'Personalized AI assistance',
+    metrics: 'Multi-agent workflows • Learning capabilities',
+    gradient: 'from-violet-600 via-purple-600 to-fuchsia-600',
+    accentColor: '#8b5cf6',
+    iconEmoji: '🧠',
+    complexity: 'Expert',
+    year: '2024'
+  },{
+    id: 'reelify-ai',
+    name: 'Reelify AI',
+    description: 'AI-Powered Video Creation Engine with Multi-Modal Generation. Architected a comprehensive video generation platform leveraging DALL·E 3, Claude, and ElevenLabs APIs to automate content creation workflows.',
+    shortDescription: 'AI-powered video creation that transforms text to professional videos',
+    image: 'https://images.pexels.com/photos/2047905/pexels-photo-2047905.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    techStack: ['Python', 'DALL·E 3', 'ElevenLabs API', 'React', 'MoviePy', 'CrewAI', 'OpenAI'],
+    category: 'AI/ML',
+    status: 'Live',
+    impact: '50% higher user retention',
+    metrics: '20,000+ users • 90% time reduction',
+    demoLink: 'https://reelify.ai',
+    codeLink: 'https://github.com/Keshav0375/reelify-ai',
+    featured: true,
+    gradient: 'from-purple-600 via-pink-600 to-blue-600',
+    accentColor: '#8b5cf6',
+    iconEmoji: '🎬',
+    complexity: 'Expert',
+    year: '2024'
+  },
+  {
+    id: 'jobfit-crafter',
+    name: 'JobFIT-Crafter',
+    description: 'Smart ATS Resume Optimization Platform with Interview Preparation. Developed an innovative platform that analyzes resumes against job descriptions using advanced NLP techniques.',
+    shortDescription: 'AI-powered resume optimization and interview preparation platform',
+    image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    techStack: ['Python', 'NLP', 'LangChain', 'React', 'OpenAI', 'Claude', 'FastAPI'],
+    category: 'AI/ML',
+    status: 'Live',
+    impact: '40% improvement in job matching',
+    metrics: '8,000+ resumes optimized • 85% ATS compatibility',
+    demoLink: 'https://jobfit-crafter.vercel.app',
+    codeLink: 'https://github.com/Keshav0375/jobfit-crafter',
+    gradient: 'from-emerald-600 via-teal-600 to-cyan-600',
+    accentColor: '#10b981',
+    iconEmoji: '📄',
+    complexity: 'Advanced',
+    year: '2024'
+  },
 ];
+
+export const projectStats = {
+  totalProjects: "10+",
+  liveProjects: "5+",
+  categories: Array.from(new Set(projects.map(p => p.category))),
+  techCount: Array.from(new Set(projects.flatMap(p => p.techStack))).length
+};
