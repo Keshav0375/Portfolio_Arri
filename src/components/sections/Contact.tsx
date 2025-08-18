@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Mail, MapPin, Phone, Send, CheckCircle } from 'lucide-react';
+import { Mail, MapPin, Phone, Send, CheckCircle, AlertCircle, Loader } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
   const [formState, setFormState] = useState({
@@ -10,8 +11,16 @@ const Contact = () => {
   });
   
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [statusMessage, setStatusMessage] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
+  
+  // EmailJS Configuration - UPDATED WITH LATEST VALUES
+  const EMAILJS_CONFIG = {
+    serviceId: 'service_rx5436c',
+    templateId: 'template_d2jmtsr', // Updated template ID from your error
+    publicKey: 'LkFlfxBiZgxeNm0CE',
+  };
   
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -46,31 +55,83 @@ const Contact = () => {
         return newErrors;
       });
     }
+    
+    // Clear status when user starts typing again
+    if (submitStatus !== 'idle') {
+      setSubmitStatus('idle');
+      setStatusMessage('');
+    }
   };
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!validateForm()) return;
     
     setIsSubmitting(true);
+    setSubmitStatus('idle');
     
-    // Simulated form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      setFormState({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-      });
+    try {
+      // Prepare template parameters (with recipient email)
+      const templateParams = {
+        from_name: formState.name,
+        from_email: formState.email,
+        subject: formState.subject || `Portfolio message from ${formState.name}`,
+        message: formState.message,
+        email: 'arri@uwindsor.ca', // Recipient email (your email)
+      };
       
-      // Reset the submitted state after 5 seconds
+      console.log('Sending email with params:', templateParams); // Debug log
+      
+      // Send email using EmailJS
+      const response = await emailjs.send(
+        EMAILJS_CONFIG.serviceId,
+        EMAILJS_CONFIG.templateId,
+        templateParams,
+        EMAILJS_CONFIG.publicKey
+      );
+      
+      console.log('EmailJS response:', response); // Debug log
+      
+      if (response.status === 200) {
+        setSubmitStatus('success');
+        setStatusMessage('Message sent successfully! I\'ll get back to you soon.');
+        setFormState({
+          name: '',
+          email: '',
+          subject: '',
+          message: '',
+        });
+        
+        // Reset success message after 5 seconds
+        setTimeout(() => {
+          setSubmitStatus('idle');
+          setStatusMessage('');
+        }, 5000);
+      } else {
+        throw new Error(`EmailJS returned status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('EmailJS error details:', error);
+      setSubmitStatus('error');
+      
+      // More specific error messages
+      if (error.text) {
+        setStatusMessage(`Failed to send: ${error.text}`);
+      } else if (error.status === 422) {
+        setStatusMessage('Configuration error. Please check EmailJS template settings.');
+      } else {
+        setStatusMessage('Failed to send message. Please try again or contact me directly.');
+      }
+      
+      // Reset error message after 7 seconds for debugging
       setTimeout(() => {
-        setIsSubmitted(false);
-      }, 5000);
-    }, 1500);
+        setSubmitStatus('idle');
+        setStatusMessage('');
+      }, 7000);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   
   return (
@@ -165,99 +226,117 @@ const Contact = () => {
           </div>
           
           <div className="glass-card animate-slide-up" style={{ animationDelay: '0.2s' }}>
-            {isSubmitted ? (
-              <div className="flex flex-col items-center justify-center h-full py-8 animate-fade-in">
-                <div className="bg-primary/20 rounded-full p-4 mb-4">
-                  <CheckCircle size={48} className="text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-2">Message Sent!</h3>
-                <p className="text-gray-400 text-center">
-                  Thank you for reaching out. I'll get back to you as soon as possible.
+            {/* Status Messages */}
+            {submitStatus !== 'idle' && (
+              <div className={`mb-6 p-4 rounded-lg flex items-start animate-fade-in ${
+                submitStatus === 'success' 
+                  ? 'bg-green-500/10 border border-green-500/30' 
+                  : 'bg-red-500/10 border border-red-500/30'
+              }`}>
+                {submitStatus === 'success' ? (
+                  <CheckCircle size={20} className="text-green-400 mr-3 mt-0.5 flex-shrink-0" />
+                ) : (
+                  <AlertCircle size={20} className="text-red-400 mr-3 mt-0.5 flex-shrink-0" />
+                )}
+                <p className={`text-sm ${
+                  submitStatus === 'success' ? 'text-green-300' : 'text-red-300'
+                }`}>
+                  {statusMessage}
                 </p>
               </div>
-            ) : (
-              <form onSubmit={handleSubmit}>
-                <div className="mb-4">
-                  <label htmlFor="name" className="block text-gray-300 mb-2">Name</label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formState.name}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-2 bg-dark-300 border ${
-                      errors.name ? 'border-red-500' : 'border-gray-700'
-                    } rounded focus:outline-none focus:border-primary text-white`}
-                    placeholder="Your name"
-                  />
-                  {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
-                </div>
-                
-                <div className="mb-4">
-                  <label htmlFor="email" className="block text-gray-300 mb-2">Email</label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formState.email}
-                    onChange={handleChange}
-                    className={`w-full px-4 py-2 bg-dark-300 border ${
-                      errors.email ? 'border-red-500' : 'border-gray-700'
-                    } rounded focus:outline-none focus:border-primary text-white`}
-                    placeholder="Your email"
-                  />
-                  {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-                </div>
-                
-                <div className="mb-4">
-                  <label htmlFor="subject" className="block text-gray-300 mb-2">Subject (Optional)</label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    value={formState.subject}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 bg-dark-300 border border-gray-700 rounded focus:outline-none focus:border-primary text-white"
-                    placeholder="Subject of your message"
-                  />
-                </div>
-                
-                <div className="mb-6">
-                  <label htmlFor="message" className="block text-gray-300 mb-2">Message</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formState.message}
-                    onChange={handleChange}
-                    rows={5}
-                    className={`w-full px-4 py-2 bg-dark-300 border ${
-                      errors.message ? 'border-red-500' : 'border-gray-700'
-                    } rounded focus:outline-none focus:border-primary text-white resize-none`}
-                    placeholder="Your message"
-                  ></textarea>
-                  {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
-                </div>
-                
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className={`w-full bg-primary hover:bg-primary/90 text-white py-3 px-4 rounded flex items-center justify-center transition-all duration-300 ${
-                    isSubmitting ? 'opacity-75 cursor-not-allowed' : ''
-                  }`}
-                >
-                  {isSubmitting ? (
-                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                  ) : (
-                    <>
-                      Send Message <Send size={18} className="ml-2" />
-                    </>
-                  )}
-                </button>
-              </form>
             )}
+            
+            <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                <label htmlFor="name" className="block text-gray-300 mb-2">Name *</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formState.name}
+                  onChange={handleChange}
+                  disabled={isSubmitting}
+                  className={`w-full px-4 py-2 bg-dark-300 border ${
+                    errors.name ? 'border-red-500' : 'border-gray-700'
+                  } rounded focus:outline-none focus:border-primary text-white disabled:opacity-50`}
+                  placeholder="Your name"
+                />
+                {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+              </div>
+              
+              <div className="mb-4">
+                <label htmlFor="email" className="block text-gray-300 mb-2">Email *</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formState.email}
+                  onChange={handleChange}
+                  disabled={isSubmitting}
+                  className={`w-full px-4 py-2 bg-dark-300 border ${
+                    errors.email ? 'border-red-500' : 'border-gray-700'
+                  } rounded focus:outline-none focus:border-primary text-white disabled:opacity-50`}
+                  placeholder="Your email"
+                />
+                {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+              </div>
+              
+              <div className="mb-4">
+                <label htmlFor="subject" className="block text-gray-300 mb-2">Subject</label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  value={formState.subject}
+                  onChange={handleChange}
+                  disabled={isSubmitting}
+                  className="w-full px-4 py-2 bg-dark-300 border border-gray-700 rounded focus:outline-none focus:border-primary text-white disabled:opacity-50"
+                  placeholder="Subject of your message (optional)"
+                />
+              </div>
+              
+              <div className="mb-6">
+                <label htmlFor="message" className="block text-gray-300 mb-2">Message *</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formState.message}
+                  onChange={handleChange}
+                  disabled={isSubmitting}
+                  rows={5}
+                  className={`w-full px-4 py-2 bg-dark-300 border ${
+                    errors.message ? 'border-red-500' : 'border-gray-700'
+                  } rounded focus:outline-none focus:border-primary text-white resize-none disabled:opacity-50`}
+                  placeholder="Your message"
+                ></textarea>
+                {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
+              </div>
+              
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={`w-full bg-primary hover:bg-primary/90 text-white py-3 px-4 rounded flex items-center justify-center transition-all duration-300 ${
+                  isSubmitting ? 'opacity-75 cursor-not-allowed' : ''
+                }`}
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader className="animate-spin h-5 w-5 mr-2" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    Send Message <Send size={18} className="ml-2" />
+                  </>
+                )}
+              </button>
+            </form>
+            
+            <div className="mt-4 text-center">
+              <p className="text-gray-500 text-xs">
+                Powered by EmailJS • Your data is secure
+              </p>
+            </div>
           </div>
         </div>
       </div>
