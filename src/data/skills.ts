@@ -1,81 +1,103 @@
-export interface Skill {
+// Updated skills data organized by tech stack layers
+export interface SkillItem {
   name: string;
-  level: number; // 0-100
-  category: 'programming' | 'ml' | 'data' | 'database' | 'tools' | 'frameworks' | 'soft';
+  icon?: string;
+  proficiency: 'Expert' | 'Advanced' | 'Proficient' | 'Learning';
+  description?: string;
 }
 
-export const skills: Skill[] = [
-  // Programming Languages
-  { name: 'Python', level: 95, category: 'programming' },
-  { name: 'C/C++', level: 85, category: 'programming' },
-  { name: 'SQL', level: 90, category: 'programming' },
-  { name: 'HTML', level: 80, category: 'programming' },
-  { name: 'CSS', level: 75, category: 'programming' },
-  
-  // Machine Learning & AI
-  { name: 'PyTorch', level: 90, category: 'ml' },
-  { name: 'TensorFlow', level: 88, category: 'ml' },
-  { name: 'Hugging Face', level: 92, category: 'ml' },
-  { name: 'NLTK', level: 85, category: 'ml' },
-  { name: 'spaCy', level: 85, category: 'ml' },
-  { name: 'Scikit-learn', level: 90, category: 'ml' },
-  { name: 'XGBoost', level: 85, category: 'ml' },
-  { name: 'OpenCV', level: 88, category: 'ml' },
-  { name: 'Detectron2', level: 80, category: 'ml' },
-  { name: 'Langchain', level: 90, category: 'ml' },
-  { name: 'Langraph', level: 85, category: 'ml' },
-  { name: 'CrewAI', level: 82, category: 'ml' },
-  { name: 'Agno', level: 80, category: 'ml' },
-  { name: 'RAG Systems', level: 92, category: 'ml' },
-  { name: 'Vector Search', level: 90, category: 'ml' },
-  { name: 'Prompt Engineering', level: 88, category: 'ml' },
-  { name: 'Fine-tuning LLMs', level: 85, category: 'ml' },
-  { name: 'Multimodal AI', level: 83, category: 'ml' },
-  
-  // Data Science & Analysis
-  { name: 'Data Structures & Algorithms', level: 88, category: 'data' },
-  { name: 'A/B Testing', level: 85, category: 'data' },
-  
-  // Databases
-  { name: 'MySQL', level: 90, category: 'database' },
-  { name: 'PostgreSQL', level: 88, category: 'database' },
-  { name: 'MongoDB', level: 85, category: 'database' },
-  { name: 'Neo4j', level: 80, category: 'database' },
-  { name: 'Pinecone', level: 85, category: 'database' },
-  { name: 'Weaviate', level: 82, category: 'database' },
-  { name: 'Milvus', level: 80, category: 'database' },
-  { name: 'Snowflake', level: 85, category: 'database' },
-  
-  // Tools & Platforms
-  { name: 'Git', level: 90, category: 'tools' },
-  { name: 'GitHub', level: 90, category: 'tools' },
-  { name: 'AWS', level: 85, category: 'tools' },
-  { name: 'Azure', level: 80, category: 'tools' },
-  { name: 'GCP', level: 82, category: 'tools' },
-  { name: 'CI/CD Pipelines', level: 85, category: 'tools' },
-  { name: 'System Design', level: 88, category: 'tools' },
-  { name: 'API Development', level: 90, category: 'tools' },
-  
-  // Frameworks
-  { name: 'FastAPI', level: 88, category: 'frameworks' },
-  { name: 'Django', level: 85, category: 'frameworks' },
-  
-  // Soft Skills
-  { name: 'Problem Solving', level: 95, category: 'soft' },
-  { name: 'Technical Leadership', level: 90, category: 'soft' },
-  { name: 'Cross-functional Collaboration', level: 88, category: 'soft' },
-  { name: 'Communication Skills', level: 90, category: 'soft' },
-  { name: 'Project Management', level: 85, category: 'soft' },
-  { name: 'Innovation Mindset', level: 90, category: 'soft' },
-  { name: 'Agile Methodologies', level: 88, category: 'soft' }
+export interface TechLayer {
+  id: string;
+  title: string;
+  subtitle: string;
+  color: string;
+  bgGradient: string;
+  skills: SkillItem[];
+  icon: string;
+}
+
+export const techStackLayers: TechLayer[] = [
+  {
+    id: 'applications',
+    title: 'AI/ML Applications & Solutions',
+    subtitle: 'What I Build',
+    color: '#10b981', // emerald-500
+    bgGradient: 'from-emerald-500/20 to-emerald-600/10',
+    icon: '🎯',
+    skills: [
+      { name: 'RAG Systems', proficiency: 'Expert', description: 'Retrieval Augmented Generation' },
+      { name: 'Agentic AI', proficiency: 'Expert', description: 'Multi-agent AI systems' },
+      { name: 'LLM Orchestration', proficiency: 'Advanced', description: 'Multi-model workflows' },
+      { name: 'Computer Vision', proficiency: 'Advanced', description: 'Object detection & segmentation' },
+      { name: 'NLP Systems', proficiency: 'Expert', description: 'Text processing & analysis' },
+      { name: 'Multimodal AI', proficiency: 'Advanced', description: 'Text, image, audio integration' },
+      { name: 'Fine-tuning LLMs', proficiency: 'Advanced', description: 'Custom model training' },
+      { name: 'Prompt Engineering', proficiency: 'Expert', description: 'Optimized AI interactions' }
+    ]
+  },
+  {
+    id: 'frameworks',
+    title: 'Frameworks & Libraries',
+    subtitle: 'How I Build',
+    color: '#3b82f6', // blue-500
+    bgGradient: 'from-blue-500/20 to-blue-600/10',
+    icon: '🧠',
+    skills: [
+      { name: 'PyTorch', proficiency: 'Expert', description: 'Deep learning framework' },
+      { name: 'TensorFlow', proficiency: 'Advanced', description: 'ML platform' },
+      { name: 'LangChain', proficiency: 'Expert', description: 'LLM application framework' },
+      { name: 'LangGraph', proficiency: 'Advanced', description: 'Workflow orchestration' },
+      { name: 'Hugging Face', proficiency: 'Expert', description: 'Pre-trained models' },
+      { name: 'FastAPI', proficiency: 'Expert', description: 'Modern web framework' },
+      { name: 'Django', proficiency: 'Advanced', description: 'Full-stack framework' },
+      { name: 'CrewAI', proficiency: 'Advanced', description: 'Multi-agent framework' },
+      { name: 'Scikit-learn', proficiency: 'Expert', description: 'Traditional ML' },
+      { name: 'OpenCV', proficiency: 'Advanced', description: 'Computer vision' }
+    ]
+  },
+  {
+    id: 'languages',
+    title: 'Programming Languages & Core',
+    subtitle: 'Foundation Skills',
+    color: '#8b5cf6', // violet-500
+    bgGradient: 'from-violet-500/20 to-violet-600/10',
+    icon: '💻',
+    skills: [
+      { name: 'Python', proficiency: 'Expert', description: 'Primary development language' },
+      { name: 'SQL', proficiency: 'Expert', description: 'Database queries & optimization' },
+      { name: 'C/C++', proficiency: 'Advanced', description: 'System programming' },
+      { name: 'JavaScript', proficiency: 'Proficient', description: 'Web development' },
+      { name: 'Bash/Shell', proficiency: 'Advanced', description: 'System automation' },
+      { name: 'Data Structures & Algorithms', proficiency: 'Expert', description: 'Problem solving foundation' },
+      { name: 'System Design', proficiency: 'Advanced', description: 'Scalable architecture' },
+      { name: 'API Development', proficiency: 'Expert', description: 'RESTful services' }
+    ]
+  },
+  {
+    id: 'infrastructure',
+    title: 'Infrastructure & Deployment',
+    subtitle: 'Where I Deploy',
+    color: '#f59e0b', // amber-500
+    bgGradient: 'from-amber-500/20 to-amber-600/10',
+    icon: '☁️',
+    skills: [
+      { name: 'AWS', proficiency: 'Advanced', description: 'EC2, Lambda, S3, Bedrock' },
+      { name: 'Azure', proficiency: 'Advanced', description: 'Web Apps, Functions, OpenAI' },
+      { name: 'GCP', proficiency: 'Proficient', description: 'Compute Engine, Cloud AI' },
+      { name: 'Docker', proficiency: 'Advanced', description: 'Containerization' },
+      { name: 'Git/GitHub', proficiency: 'Expert', description: 'Version control' },
+      { name: 'CI/CD Pipelines', proficiency: 'Advanced', description: 'Automated deployment' },
+      { name: 'Vector Databases', proficiency: 'Expert', description: 'Pinecone, Weaviate, Milvus' },
+      { name: 'MongoDB', proficiency: 'Advanced', description: 'NoSQL database' },
+      { name: 'PostgreSQL', proficiency: 'Advanced', description: 'Relational database' }
+    ]
+  }
 ];
 
-export const skillCategories = [
-  { id: 'programming', label: 'Programming Languages' },
-  { id: 'ml', label: 'Machine Learning & AI' },
-  { id: 'data', label: 'Data Science & Analysis' },
-  { id: 'database', label: 'Databases' },
-  { id: 'tools', label: 'Tools & Platforms' },
-  { id: 'frameworks', label: 'Frameworks' },
-  { id: 'soft', label: 'Soft Skills' }
-];
+export const skillStats = {
+  totalSkills: techStackLayers.reduce((total, layer) => total + layer.skills.length, 0),
+  expertSkills: techStackLayers.reduce((total, layer) => 
+    total + layer.skills.filter(skill => skill.proficiency === 'Expert').length, 0),
+  layersCount: techStackLayers.length,
+  yearsExperience: '2+'
+};

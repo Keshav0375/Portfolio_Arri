@@ -3,7 +3,7 @@ import { Brain, Code, Bot, Database, Download, Eye } from 'lucide-react';
 
 const About = () => {
   const stats = [
-    { label: 'Years Experience', value: '1+' },
+    { label: 'Years Experience', value: '2+' },
     { label: 'Projects Completed', value: '15+' },
     { label: 'Hackathons', value: '2' },
     { label: 'Frameworks', value: '10+' }

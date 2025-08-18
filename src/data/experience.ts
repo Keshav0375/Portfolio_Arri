@@ -18,7 +18,7 @@ export const experiences: Experience[] = [
     period: "February 2024 - February 2025",
     description: "Engineered enterprise-grade LLM infrastructure and RAG systems that transformed presentation creation workflows through multi-modal AI orchestration.",
     achievements: [
-       "Architected multi-LLM pipeline (Claude, GPT) with FastAPI reducing PPT creation time by 90% (3min→30sec) for 20,000+ users while maintaining 99.9% uptime and decreasing latency by 25%",
+       "Architected multi-LLM pipeline (Claude, GPT) with FastAPI reducing PPT creation time by 90% (3min→30sec) for 5,000+ users while maintaining 99.9% uptime and decreasing latency by 25%",
        "Deployed RAG-powered document creation system and chatbot across Azure/AWS infrastructure (EC2, Lambda, CloudWatch), implementing A/B testing that improved user engagement by 40%",
        "Optimized vector search algorithms and prompt engineering techniques to enhance content generation quality, resulting in 35% higher user satisfaction scores"
     ],
