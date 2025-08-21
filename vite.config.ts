@@ -19,7 +19,7 @@ export default defineConfig({
   // Build optimizations
   build: {
     target: 'esnext',
-    minify: 'terser',
+    minify: 'esbuild',
     sourcemap: false,
     cssCodeSplit: true,
     chunkSizeWarningLimit: 1000,
