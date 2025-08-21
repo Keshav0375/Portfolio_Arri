@@ -1,15 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { useScrollThrottle } from '../hooks/useScrollThrottle';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 
-const ScrollProgress = () => {
+const ScrollProgress = React.memo(() => {
   const [progress, setProgress] = useState(0);
+  const ticking = useRef(false);
 
-  const handleScroll = useScrollThrottle(() => {
+  const updateProgress = useCallback(() => {
     const winScroll = window.scrollY;
     const height = document.documentElement.scrollHeight - window.innerHeight;
-    const scrolled = (winScroll / height) * 100;
+    const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
     setProgress(scrolled);
-  });
+    ticking.current = false;
+  }, []);
+
+  const handleScroll = useCallback(() => {
+    if (!ticking.current) {
+      requestAnimationFrame(updateProgress);
+      ticking.current = true;
+    }
+  }, [updateProgress]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -28,6 +36,8 @@ const ScrollProgress = () => {
       />
     </div>
   );
-};
+});
+
+ScrollProgress.displayName = 'ScrollProgress';
 
 export default ScrollProgress;
