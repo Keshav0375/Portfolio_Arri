@@ -15,7 +15,7 @@ export const experiences: Experience[] = [
     role: "AI ML Engineer",
     company: "Slideoo AI",
     location: "Bengaluru, India",
-    period: "February 2024 - February 2025",
+    period: "January 2024 - December 2025",
     description: "Engineered enterprise-grade LLM infrastructure and RAG systems that transformed presentation creation workflows through multi-modal AI orchestration.",
     achievements: [
        "Architected multi-LLM pipeline (Claude, GPT) with FastAPI reducing PPT creation time by 90% (3min→30sec) for 5,000+ users while maintaining 99.9% uptime and decreasing latency by 25%",
@@ -26,10 +26,10 @@ export const experiences: Experience[] = [
   },
   {
     id: 2,
-    role: "Data Scientist & NLP Researcher",
+    role: "Data Scientist & NLP Research Intern",
     company: "Sabudh Foundation",
     location: "Mohali, India",
-    period: "July 2023 - January 2024",
+    period: "July 2023 - December 2023",
     description: "Pioneered computer vision and NLP solutions for intelligent document processing, transforming unstructured data into actionable business intelligence.",
     achievements: [
       "Led IDP project integrating OCR, NLP and Detectron2 that automated document workflows, reducing manual data entry by 60% while improving processing speed by 50%",
