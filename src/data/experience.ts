@@ -12,7 +12,7 @@ interface Experience {
 export const experiences: Experience[] = [
   {
     id: 1,
-    role: "AI ML Engineer",
+    role: "AI Software Engineer",
     company: "Slideoo AI",
     location: "Bengaluru, India",
     period: "January 2024 - December 2025",
