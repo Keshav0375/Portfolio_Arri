@@ -1,118 +1,85 @@
 import React from 'react';
-import { Calendar, MapPin, Award, GraduationCap } from 'lucide-react';
-import { education } from '../../data/education';
+import { MapPin, ArrowRight, ArrowDown, GraduationCap } from 'lucide-react';
 
 const Education = () => {
   return (
-    <section id="education" className="py-20 bg-dark-400 relative">
-      <div className="absolute inset-0 z-0 opacity-30">
+    <section id="education" className="py-20 relative overflow-hidden bg-slate-50 dark:bg-[#0f0f0f]">
+      <div className="absolute inset-0 z-0 opacity-20 dark:opacity-30">
         <div className="absolute top-1/3 right-1/3 w-64 h-64 rounded-full bg-secondary/20 filter blur-[100px]" />
         <div className="absolute bottom-1/3 left-1/3 w-64 h-64 rounded-full bg-primary/20 filter blur-[100px]" />
       </div>
-      
+
       <div className="section-container relative z-10">
-        <h2 className="section-title">Education</h2>
-        
-        <div className="mt-12 space-y-8">
-          {education.map((edu, index) => (
-            <div 
-              key={edu.id} 
-              className="relative animate-slide-up"
-              style={{ animationDelay: `${index * 0.2}s` }}
-            >
-              {/* Left-aligned timeline with dot */}
-              <div className="flex">
-                <div className="flex flex-col items-center mr-6">
-                  <div 
-                    className="w-6 h-6 rounded-full bg-primary flex-shrink-0"
-                    style={{ boxShadow: '0 0 10px rgba(108, 92, 231, 0.5)' }}
-                  ></div>
-                  {index < education.length - 1 && (
-                    <div className="w-0.5 h-full bg-gray-700 mt-2 min-h-[100px]"></div>
-                  )}
-                </div>
-                
-                <div className="glass-card flex-1">
-                  {/* Header */}
-                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-4">
-                    <div className="flex-1">
-                      <h3 className="text-xl font-semibold text-white mb-2">{edu.degree}</h3>
-                      <div className="text-primary text-lg mb-2">{edu.institution}</div>
-                    </div>
-                    <div className="bg-dark-300 px-3 py-1 rounded text-gray-400 text-sm mt-2 sm:mt-0 self-start">
-                      {edu.period}
-                    </div>
-                  </div>
-                  
-                  {/* Location */}
-                  <div className="flex items-center text-gray-400 text-sm mb-4">
-                    <MapPin size={16} className="mr-2" />
-                    <span>{edu.location}</span>
-                  </div>
-                  
-                  {/* Description */}
-                  <p className="text-gray-300 mb-5">{edu.description}</p>
-                  
-                  {/* Courses */}
-                  {edu.courses && (
-                    <div className="mb-4">
-                      <h4 className="text-white font-semibold mb-3 flex items-center">
-                        <GraduationCap size={18} className="mr-2 text-primary" />
-                        Key Courses
-                      </h4>
-                      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
-                        {edu.courses.map((course, idx) => (
-                          <span 
-                            key={idx} 
-                            className="bg-dark-300 px-3 py-1 rounded text-gray-300 text-xs text-center"
-                          >
-                            {course}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                  
-                  {/* Achievements */}
-                  {edu.achievements && (
-                    <div>
-                      <h4 className="text-white font-semibold mb-3 flex items-center">
-                        <Award size={18} className="mr-2 text-primary" />
-                        Achievements
-                      </h4>
-                      <ul className="space-y-2">
-                        {edu.achievements.map((achievement, idx) => (
-                          <li key={idx} className="flex items-start">
-                            <span className="text-primary mr-3 mt-1 flex-shrink-0">•</span>
-                            <span className="text-gray-300">{achievement}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
+        <h2 className="section-title">Academic Journey</h2>
+        <p className="text-slate-500 dark:text-gray-400 mt-6 mb-12 text-base">The foundation behind the engineering</p>
+
+        <div className="flex flex-col md:flex-row items-stretch gap-4 max-w-5xl mx-auto">
+
+          {/* Card 1: Bachelors */}
+          <div className="flex-1 glass-card flex flex-col">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="w-10 h-10 bg-slate-100 dark:bg-gray-600/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <GraduationCap className="h-5 w-5 text-slate-400 dark:text-gray-400" />
               </div>
+              <span className="text-slate-400 dark:text-gray-500 text-xs uppercase tracking-widest font-mono">2020 – 2024</span>
             </div>
-          ))}
-        </div>
-        
-        {/* Bottom section */}
-        <div className="mt-16 text-center">
-          <div className="glass-card inline-block">
-            <div className="flex flex-col sm:flex-row items-center">
-              <div className="mb-4 sm:mb-0 sm:mr-6">
-                <Award size={48} className="text-primary" />
-              </div>
-              <div className="text-left">
-                <h3 className="text-xl font-semibold text-white mb-2">Lifelong Learner</h3>
-                <p className="text-gray-400">
-                  Beyond formal education, I'm committed to continuous learning. 
-                  I regularly participate in online courses, industry conferences, and research projects 
-                  to stay at the forefront of AI and machine learning advancements.
-                </p>
-              </div>
+
+            <h3 className="text-slate-900 dark:text-white font-bold text-lg mb-1">B.Tech Computer Science & Engineering</h3>
+            <p className="text-primary text-sm mb-2">Guru Nanak Dev Engineering College</p>
+            <div className="flex items-center text-slate-400 dark:text-gray-500 text-xs mb-4">
+              <MapPin size={12} className="mr-1 flex-shrink-0" />
+              Punjab, India
+            </div>
+
+            <p className="text-slate-600 dark:text-gray-400 text-sm leading-relaxed mb-5">
+              Built CS fundamentals from the ground up — algorithms, distributed systems, databases, OS, and first deep-dives into machine learning. Graduated with SGPA 8.13/10.
+            </p>
+
+            <div className="flex flex-wrap gap-2 mt-auto">
+              {['DSA', 'Operating Systems', 'Networking', 'ML Fundamentals', 'DBMS', 'OOP'].map(tag => (
+                <span key={tag} className="px-2 py-1 bg-slate-100 dark:bg-[#1a1a1a] text-slate-500 dark:text-gray-400 text-xs rounded border border-slate-200 dark:border-transparent">{tag}</span>
+              ))}
             </div>
           </div>
+
+          {/* Connector arrow */}
+          <div className="flex items-center justify-center flex-shrink-0 text-primary py-2 md:py-0">
+            <ArrowRight size={28} className="hidden md:block" />
+            <ArrowDown size={28} className="md:hidden" />
+          </div>
+
+          {/* Card 2: Masters — highlighted */}
+          <div className="flex-1 relative glass-card neon-border bg-white dark:bg-[#1a1a1a]/80 flex flex-col">
+            <div className="absolute -top-3 right-4">
+              <span className="bg-primary text-white text-xs font-bold px-3 py-1 rounded-full">Current</span>
+            </div>
+
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                <GraduationCap className="h-5 w-5 text-primary" />
+              </div>
+              <span className="text-primary text-xs uppercase tracking-widest font-mono">2025 – Present</span>
+            </div>
+
+            <h3 className="text-slate-900 dark:text-white font-bold text-lg mb-1">Master of Applied Computing</h3>
+            <p className="text-primary text-sm mb-1">University of Windsor 🍁</p>
+            <p className="text-slate-400 dark:text-gray-500 text-xs mb-2">Specialization: Artificial Intelligence</p>
+            <div className="flex items-center text-slate-400 dark:text-gray-500 text-xs mb-4">
+              <MapPin size={12} className="mr-1 flex-shrink-0" />
+              Windsor, Ontario, Canada
+            </div>
+
+            <p className="text-slate-600 dark:text-gray-300 text-sm leading-relaxed mb-5">
+              Moved to Canada to go deep on AI — advanced ML, autonomous systems, and large-scale distributed computing. Concurrently interning at Kinaxis as an ML Developer.
+            </p>
+
+            <div className="flex flex-wrap gap-2 mt-auto">
+              {['Advanced ML', 'Deep Learning', 'Distributed Systems', 'AI Systems', 'System Programming'].map(tag => (
+                <span key={tag} className="px-2 py-1 bg-primary/10 text-primary text-xs rounded border border-primary/20">{tag}</span>
+              ))}
+            </div>
+          </div>
+
         </div>
       </div>
     </section>

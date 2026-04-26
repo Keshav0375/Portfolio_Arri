@@ -96,8 +96,8 @@ export const techStackLayers: TechLayer[] = [
 
 export const skillStats = {
   totalSkills: techStackLayers.reduce((total, layer) => total + layer.skills.length, 0),
-  expertSkills: techStackLayers.reduce((total, layer) => 
+  expertSkills: techStackLayers.reduce((total, layer) =>
     total + layer.skills.filter(skill => skill.proficiency === 'Expert').length, 0),
   layersCount: techStackLayers.length,
-  yearsExperience: '2+'
+  yearsExperience: '3+'
 };

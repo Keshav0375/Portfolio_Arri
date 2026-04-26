@@ -14,21 +14,19 @@ const ParticleBackground = React.memo(() => {
   const particlesRef = useRef<Particle[]>([]);
   const mouseRef = useRef({ x: 0, y: 0 });
   const animationIdRef = useRef<number>();
+  const resizeTimerRef = useRef<ReturnType<typeof setTimeout>>();
   const [isVisible, setIsVisible] = useState(false);
 
-  // Optimized resize handler with debouncing
   const resizeCanvas = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
   }, []);
 
-  // Debounced resize handler
   const debouncedResize = useCallback(() => {
-    clearTimeout(window.resizeTimeout);
-    window.resizeTimeout = setTimeout(resizeCanvas, 100);
+    clearTimeout(resizeTimerRef.current);
+    resizeTimerRef.current = setTimeout(resizeCanvas, 100);
   }, [resizeCanvas]);
 
   // Optimized mouse move handler with throttling
@@ -129,7 +127,7 @@ const ParticleBackground = React.memo(() => {
       }
       window.removeEventListener('resize', debouncedResize);
       window.removeEventListener('mousemove', handleMouseMove);
-      clearTimeout(window.resizeTimeout);
+      clearTimeout(resizeTimerRef.current);
     };
   }, [resizeCanvas, debouncedResize, handleMouseMove]);
 
