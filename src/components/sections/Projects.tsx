@@ -45,10 +45,10 @@ const ProjectCard = React.memo(({ project, index }: { project: Project; index: n
   return (
     <div
       ref={cardRef}
-      className={`group relative transform transition-all duration-500 ${
+      className={`group relative transition-[opacity,transform] duration-500 ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}
-      style={{ transitionDelay: `${index * 0.1}s` }}
+      style={{ transitionDelay: `${index * 0.08}s` }}
     >
       <div className="relative overflow-hidden rounded-2xl border transition-all duration-300
         bg-white border-slate-200 shadow-sm hover:border-slate-300 hover:shadow-md
@@ -113,13 +113,13 @@ const ProjectCard = React.memo(({ project, index }: { project: Project; index: n
           <div className="flex items-center space-x-3 pt-2">
             {project.demoLink && (
               <a href={project.demoLink} target="_blank" rel="noopener noreferrer"
-                 className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium text-sm bg-gradient-to-r ${project.gradient} text-white transition-all duration-300 hover:scale-105`}>
+                 className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium text-sm bg-gradient-to-r ${project.gradient} text-white transition-transform duration-200 hover:scale-105`}>
                 <ExternalLink size={16} /><span>Live Demo</span>
               </a>
             )}
             {project.codeLink && (
               <a href={project.codeLink} target="_blank" rel="noopener noreferrer"
-                 className="flex items-center space-x-2 px-4 py-2 rounded-lg font-medium text-sm bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-white border border-slate-200 dark:border-white/20 transition-all duration-300 hover:bg-slate-200 dark:hover:bg-white/20">
+                 className="flex items-center space-x-2 px-4 py-2 rounded-lg font-medium text-sm bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-white border border-slate-200 dark:border-white/20 transition-colors duration-200 hover:bg-slate-200 dark:hover:bg-white/20">
                 <Github size={16} /><span>Code</span>
               </a>
             )}

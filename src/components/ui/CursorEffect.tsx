@@ -5,27 +5,34 @@ const CursorEffect = () => {
   const cursorDotRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Check if device has hover capability
     const hasHover = window.matchMedia('(hover: hover)').matches;
     if (!hasHover) return;
 
     const cursor = cursorRef.current;
     const cursorDot = cursorDotRef.current;
-    
     if (!cursor || !cursorDot) return;
 
+    let rafId: number | null = null;
+    let pendingX = 0;
+    let pendingY = 0;
+
     const moveCursor = (e: MouseEvent) => {
-      const mouseY = e.clientY;
-      const mouseX = e.clientX;
-      
-      cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
-      cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+      pendingX = e.clientX;
+      pendingY = e.clientY;
+      if (rafId === null) {
+        rafId = requestAnimationFrame(() => {
+          cursor.style.transform = `translate3d(${pendingX}px, ${pendingY}px, 0)`;
+          cursorDot.style.transform = `translate3d(${pendingX}px, ${pendingY}px, 0)`;
+          rafId = null;
+        });
+      }
     };
 
-    window.addEventListener('mousemove', moveCursor);
-    
+    window.addEventListener('mousemove', moveCursor, { passive: true });
+
     return () => {
       window.removeEventListener('mousemove', moveCursor);
+      if (rafId !== null) cancelAnimationFrame(rafId);
     };
   }, []);
 

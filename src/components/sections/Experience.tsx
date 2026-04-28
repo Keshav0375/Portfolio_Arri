@@ -1,19 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { MapPin, Briefcase } from 'lucide-react';
 import { experiences } from '../../data/experience';
 
 const Experience = () => {
   const [selectedExp, setSelectedExp] = useState(experiences[0].id);
+  const [panelKey, setPanelKey] = useState(0);
+  const [sectionVisible, setSectionVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
   const currentExp = experiences.find(exp => exp.id === selectedExp) || experiences[0];
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setSectionVisible(true); observer.disconnect(); } },
+      { threshold: 0.1 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  const handleSelectExp = (id: string) => {
+    if (id === selectedExp) return;
+    setSelectedExp(id);
+    setPanelKey(k => k + 1);
+  };
+
   return (
-    <section id="experience" className="py-20 relative bg-white dark:bg-[#141414]">
+    <section id="experience" className="py-20 relative bg-white dark:bg-[#141414]" ref={sectionRef}>
       <div className="absolute inset-0 z-0 opacity-20 dark:opacity-30">
         <div className="absolute top-1/4 right-1/4 w-64 h-64 rounded-full bg-secondary/20 filter blur-[100px]" />
         <div className="absolute bottom-1/4 left-1/4 w-64 h-64 rounded-full bg-primary/20 filter blur-[100px]" />
       </div>
 
-      <div className="section-container relative z-10">
+      <div className={`section-container relative z-10 transition-opacity duration-500 ${sectionVisible ? 'opacity-100' : 'opacity-0'}`}>
         <h2 className="section-title">Experience</h2>
 
         <div className="mt-12 grid md:grid-cols-3 gap-8">
@@ -23,12 +41,12 @@ const Experience = () => {
               {experiences.map((exp) => (
                 <button
                   key={exp.id}
-                  className={`w-full text-left px-4 py-3 rounded-md mb-2 transition-all duration-300 ${
+                  className={`w-full text-left px-4 py-3 rounded-md mb-2 transition-colors duration-200 ${
                     selectedExp === exp.id
                       ? 'bg-primary/10 border-l-2 border-primary'
                       : 'hover:bg-slate-100 dark:hover:bg-[#222222]'
                   }`}
-                  onClick={() => setSelectedExp(exp.id)}
+                  onClick={() => handleSelectExp(exp.id)}
                 >
                   <div className="font-semibold text-slate-900 dark:text-white">{exp.role}</div>
                   <div className="text-sm text-primary">{exp.company}</div>
@@ -39,7 +57,7 @@ const Experience = () => {
           </div>
 
           {/* Detail panel */}
-          <div className="md:col-span-2 animate-fade-in">
+          <div key={panelKey} className="md:col-span-2 animate-fade-in">
             <div className="glass-card h-full">
               <div className="flex justify-between items-start mb-6">
                 <div>

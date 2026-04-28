@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Mail, MapPin, Phone, Send, CheckCircle, AlertCircle, Loader } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
@@ -8,6 +8,17 @@ const Contact = () => {
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [statusMessage, setStatusMessage] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [sectionVisible, setSectionVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setSectionVisible(true); observer.disconnect(); } },
+      { threshold: 0.1 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   const EMAILJS_CONFIG = {
     serviceId:  'service_rx5436c',
@@ -71,7 +82,7 @@ const Contact = () => {
      disabled:opacity-50`;
 
   return (
-    <section id="contact" className="py-20 relative bg-slate-50 dark:bg-[#141414]">
+    <section id="contact" className="py-20 relative bg-slate-50 dark:bg-[#141414]" ref={sectionRef}>
       <div className="absolute inset-0 z-0 opacity-20 dark:opacity-30">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-primary/20 filter blur-[100px]" />
         <div className="absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full bg-secondary/20 filter blur-[100px]" />
@@ -81,7 +92,7 @@ const Contact = () => {
         <h2 className="section-title">Contact Me</h2>
 
         <div className="grid md:grid-cols-2 gap-12 mt-12">
-          <div className="animate-slide-up">
+          <div className={sectionVisible ? 'animate-slide-up' : 'opacity-0'}>
             <h3 className="text-2xl font-mono font-semibold text-slate-900 dark:text-white mb-8">Get In Touch</h3>
 
             <div className="space-y-6">
@@ -137,7 +148,7 @@ const Contact = () => {
             </div>
           </div>
 
-          <div className="glass-card animate-slide-up" style={{ animationDelay: '0.2s' }}>
+          <div className={`glass-card ${sectionVisible ? 'animate-slide-up' : 'opacity-0'}`} style={{ animationDelay: sectionVisible ? '0.15s' : '0s' }}>
             {submitStatus !== 'idle' && (
               <div className={`mb-6 p-4 rounded-lg flex items-start animate-fade-in ${
                 submitStatus === 'success' ? 'bg-green-500/10 border border-green-500/30' : 'bg-red-500/10 border border-red-500/30'

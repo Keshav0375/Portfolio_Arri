@@ -21,7 +21,6 @@ const SectionLoader = () => (
 );
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
   const [particlesLoaded, setParticlesLoaded] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     return (localStorage.getItem('theme') as 'light' | 'dark') || 'light';
@@ -35,26 +34,9 @@ function App() {
   const toggleTheme = () => setTheme(t => t === 'light' ? 'dark' : 'light');
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 500);
+    const timer = setTimeout(() => setParticlesLoaded(true), 300);
     return () => clearTimeout(timer);
   }, []);
-
-  useEffect(() => {
-    if (!isLoading) {
-      const particleTimer = setTimeout(() => setParticlesLoaded(true), 100);
-      return () => clearTimeout(particleTimer);
-    }
-  }, [isLoading]);
-
-  if (isLoading) {
-    return (
-      <div className="h-screen w-screen flex items-center justify-center bg-white dark:bg-[#0f0f0f]">
-        <div className="text-primary text-2xl font-mono">
-          Loading<span className="animate-blink">_</span>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="bg-white text-slate-800 dark:bg-[#0f0f0f] dark:text-gray-200 min-h-screen relative">

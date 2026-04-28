@@ -7,6 +7,7 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeSpeed;
   }
 
   body {
@@ -31,22 +32,27 @@
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
   }
+
+  section {
+    contain: layout style;
+  }
 }
 
 @layer components {
   .neon-text {
-    @apply text-[#7c3aed] transition-all duration-300;
+    @apply text-[#7c3aed];
     text-shadow: 0 0 5px rgba(124, 58, 237, 0.3);
   }
 
   .neon-border {
-    @apply border border-[#7c3aed] transition-all duration-300;
+    @apply border border-[#7c3aed];
     box-shadow: 0 0 5px rgba(124, 58, 237, 0.3);
   }
 
   .neon-button {
     @apply bg-transparent text-[#7c3aed] border border-[#7c3aed] px-6 py-2 rounded
-           transition-all duration-300 hover:bg-[#7c3aed]/10 hover:text-[#7c3aed];
+           hover:bg-[#7c3aed]/10;
+    transition: background-color 200ms ease, box-shadow 200ms ease;
     box-shadow: 0 0 5px rgba(124, 58, 237, 0.2);
   }
 
@@ -56,8 +62,9 @@
 
   .glass-card {
     @apply bg-white border border-slate-200 rounded-lg p-6
-           transition-all duration-300 hover:border-[#7c3aed]/50
+           hover:border-[#7c3aed]/50
            dark:bg-[#1a1a1a]/70 dark:border-gray-800;
+    transition: border-color 200ms ease, box-shadow 200ms ease;
   }
 
   .glass-card:hover {
@@ -88,17 +95,17 @@
   }
 
   .animate-slide-up {
-    animation: slideUp 0.6s ease forwards;
+    animation: slideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     will-change: transform, opacity;
   }
 
   @keyframes slideUp {
-    from { transform: translateY(30px); opacity: 0; }
+    from { transform: translateY(24px); opacity: 0; }
     to   { transform: translateY(0);    opacity: 1; }
   }
 
   .animate-fade-in {
-    animation: fadeIn 0.8s ease forwards;
+    animation: fadeIn 0.4s ease forwards;
     will-change: opacity;
   }
 
@@ -109,20 +116,20 @@
 
   .scroll-reveal {
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    transform: translateY(16px);
+    transition: opacity 0.35s ease-out, transform 0.35s ease-out;
     will-change: transform, opacity;
   }
 
   .scroll-reveal.visible {
     opacity: 1;
     transform: translateY(0);
+    will-change: auto;
   }
 
   .perf-optimized {
     transform: translateZ(0);
     backface-visibility: hidden;
-    perspective: 1000px;
   }
 
   @media (prefers-reduced-motion: reduce) {
