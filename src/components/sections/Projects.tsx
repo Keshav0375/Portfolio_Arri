@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ExternalLink, Github, TrendingUp, Code2 } from 'lucide-react';
 import { projects, Project } from '../../data/projects';
 
-const featuredIds = ['reelify-ai', 'jobfit-crafter', 'data-dialect'];
+const featuredIds = ['sentinel', 'finadvisor', 'data-dialect'];
 const featuredProjects = projects.filter(p => featuredIds.includes(p.id));
 
 const StatusBadge = React.memo(({ status }: { status: string }) => {

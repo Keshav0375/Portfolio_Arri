@@ -5,19 +5,19 @@ const skillColumns = [
     title: 'Languages & Frameworks',
     accent: '#7c3aed',
     accentLight: 'rgba(124,58,237,0.08)',
-    skills: ['Python', 'C++', 'Bash', 'PyTorch', 'LangChain', 'LangGraph', 'FastAPI'],
+    skills: ['Python', 'SQL', 'Java', 'JavaScript', 'C++', 'Bash', 'FastAPI', 'Flask', 'Django', 'Node.js', 'React', 'Pydantic'],
   },
   {
-    title: 'AI & Backend',
+    title: 'AI & LLMOps',
     accent: '#0ea5e9',
     accentLight: 'rgba(14,165,233,0.08)',
-    skills: ['RAG Systems', 'Prompt Engineering', 'REST APIs', 'PostgreSQL', 'MongoDB', 'Redis'],
+    skills: ['Anthropic SDK', 'OpenAI SDK', 'LangChain', 'LangGraph', 'LiteLLM', 'LangFuse', 'Kong AI Gateway', 'MCP', 'RAG Systems', 'Agentic AI', 'Prompt Engineering'],
   },
   {
     title: 'Cloud & DevOps',
     accent: '#f59e0b',
     accentLight: 'rgba(245,158,11,0.08)',
-    skills: ['AWS', 'GCP', 'Azure', 'Kubernetes', 'CI/CD', 'GitHub Actions'],
+    skills: ['AWS', 'Azure', 'GCP', 'Docker', 'Kubernetes', 'Terraform', 'Helm', 'GitHub Actions', 'CI/CD', 'Linux', 'PostgreSQL', 'MongoDB', 'Redis', 'Cosmos DB', 'Snowflake'],
   },
 ];
 

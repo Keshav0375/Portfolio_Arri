@@ -21,7 +21,42 @@ export interface Project {
 }
 
 export const projects: Project[] = [
-  
+  {
+    id: 'sentinel',
+    name: 'Sentinel',
+    description: 'Agentic DevOps Incident Response System with orchestrator routing to specialist sub-agents (triage, root-cause analysis, remediation). Features HITL-gated GitHub PR flow, evaluated via trajectory-level rubric across 40 real scenarios.',
+    shortDescription: 'Multi-agent system that auto-triages, diagnoses, and remediates production incidents',
+    image: 'https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    techStack: ['Python', 'LiteLLM', 'LangFuse', 'Kong AI Gateway', 'Cosmos DB', 'Redis', 'Azure Container Apps', 'Bicep', 'GitHub Actions'],
+    category: 'AI/ML',
+    status: 'Completed',
+    impact: 'HITL-gated PR remediation',
+    metrics: '40 eval scenarios • Episodic + semantic memory • Eval-gated CI/CD',
+    codeLink: 'https://github.com/Keshav0375/Sentinel',
+    gradient: 'from-red-600 via-orange-600 to-yellow-500',
+    accentColor: '#ef4444',
+    iconEmoji: '🛡️',
+    complexity: 'Expert',
+    year: '2026'
+  },
+  {
+    id: 'finadvisor',
+    name: 'FinAdvisor',
+    description: 'Multi-Agent Financial Advisory Platform with supervisor orchestrating specialist agents — risk, portfolio, tax, and SEC RAG. Real-time market data integration, streaming Next.js frontend, and full observability via LangFuse.',
+    shortDescription: 'AI financial advisor with specialist agents for personalized investment guidance',
+    image: 'https://images.pexels.com/photos/6801648/pexels-photo-6801648.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    techStack: ['Python', 'Anthropic SDK', 'FastAPI', 'Next.js', 'LangFuse', 'AWS ECS Fargate', 'DynamoDB', 'OpenSearch', 'GitHub Actions'],
+    category: 'AI/ML',
+    status: 'Completed',
+    impact: 'Personalized financial advisory at scale',
+    metrics: '4 specialist agents • SEC RAG • Real-time market data • Eval harness',
+    codeLink: 'https://github.com/Keshav0375/FinAdvisor',
+    gradient: 'from-emerald-600 via-teal-600 to-cyan-600',
+    accentColor: '#10b981',
+    iconEmoji: '💰',
+    complexity: 'Expert',
+    year: '2025'
+  },
   {
     id: 'data-dialect',
     name: 'Data Dialect',
