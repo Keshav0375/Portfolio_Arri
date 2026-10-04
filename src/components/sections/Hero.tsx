@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useCallback } from 'react';
-import { ArrowDown, Terminal } from 'lucide-react';
+import { ArrowDown, Terminal, FileText } from 'lucide-react';
+import { RESUME_VIEW_URL } from '../../data/links';
 
 const phrases = [
   'AI Software Engineer',
@@ -84,12 +85,17 @@ const Hero = React.memo(() => {
               AI Software Engineer with 2 years building production agentic AI systems, multi-agent orchestration, RAG pipelines, and LLM gateway infrastructure in Python and C#/.NET across Azure, GCP, and AWS — cut LLM latency 77% and token cost 48%.
             </p>
 
-            <div className="flex space-x-4 pt-4">
+            <div className="flex flex-wrap gap-4 pt-4">
               <a href="#projects" className="neon-button">
                 View My Work
               </a>
               <a href="#contact" className="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded transition-all duration-300">
                 Contact Me
+              </a>
+              <a href={RESUME_VIEW_URL} target="_blank" rel="noopener noreferrer"
+                 className="inline-flex items-center gap-2 px-6 py-2 rounded border border-slate-300 text-slate-700 hover:border-primary hover:text-primary dark:border-white/20 dark:text-gray-200 dark:hover:border-primary dark:hover:text-primary transition-all duration-300">
+                <FileText size={18} />
+                Resume
               </a>
             </div>
           </div>

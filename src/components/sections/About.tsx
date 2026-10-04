@@ -1,5 +1,6 @@
 import React from 'react';
 import { Brain, Code, Bot, Database, Download, Eye } from 'lucide-react';
+import { RESUME_VIEW_URL, RESUME_DOWNLOAD_URL } from '../../data/links';
 
 const About = () => {
   const stats = [
@@ -32,9 +33,6 @@ const About = () => {
     }
   ];
 
-  // Google Drive direct download link
-  const RESUME_DOWNLOAD_URL = "https://drive.google.com/uc?export=download&id=17-e7V0hIiQdCqkKfPrroo_NIyMX_xqfW";
-  const RESUME_VIEW_URL = "https://drive.google.com/file/d/17-e7V0hIiQdCqkKfPrroo_NIyMX_xqfW/view?usp=sharing";
 
   const handleResumeDownload = () => {
     // Create a link element and trigger download
