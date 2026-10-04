@@ -20,6 +20,15 @@ const Contact = () => {
     return () => observer.disconnect();
   }, []);
 
+  const CONTACT_EMAIL = 'keshavk5655@gmail.com';
+
+  // Prefilled mailto so a visitor's message is never lost if EmailJS is down
+  const mailtoHref = () => {
+    const subject = formState.subject || `Portfolio message from ${formState.name}`;
+    const body = `${formState.message}\n\n— ${formState.name} (${formState.email})`;
+    return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+
   const EMAILJS_CONFIG = {
     serviceId:  'service_rx5436c',
     templateId: 'template_d2jmtsr',
@@ -54,7 +63,7 @@ const Contact = () => {
         from_email: formState.email,
         subject:    formState.subject || `Portfolio message from ${formState.name}`,
         message:    formState.message,
-        email:      'keshavk5655@gmail.com',
+        email:      CONTACT_EMAIL,
       };
       const response = await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, templateParams, EMAILJS_CONFIG.publicKey);
       if (response.status === 200) {
@@ -65,10 +74,11 @@ const Contact = () => {
       } else {
         throw new Error(`EmailJS status: ${response.status}`);
       }
-    } catch (error: any) {
+    } catch (error) {
+      // Provider errors (e.g. expired Gmail OAuth grant) are for the console, not visitors
+      console.error('EmailJS send failed:', error);
       setSubmitStatus('error');
-      setStatusMessage(error?.text ? `Failed to send: ${error.text}` : 'Failed to send message. Please try again or contact me directly.');
-      setTimeout(() => { setSubmitStatus('idle'); setStatusMessage(''); }, 7000);
+      setStatusMessage("The form couldn't send your message right now. Your text is still here — send it straight from your email app instead.");
     } finally {
       setIsSubmitting(false);
     }
@@ -156,9 +166,17 @@ const Contact = () => {
                 {submitStatus === 'success'
                   ? <CheckCircle size={20} className="text-green-500 mr-3 mt-0.5 flex-shrink-0" />
                   : <AlertCircle size={20} className="text-red-500 mr-3 mt-0.5 flex-shrink-0" />}
-                <p className={`text-sm ${submitStatus === 'success' ? 'text-green-600 dark:text-green-300' : 'text-red-600 dark:text-red-300'}`}>
-                  {statusMessage}
-                </p>
+                <div>
+                  <p className={`text-sm ${submitStatus === 'success' ? 'text-green-600 dark:text-green-300' : 'text-red-600 dark:text-red-300'}`}>
+                    {statusMessage}
+                  </p>
+                  {submitStatus === 'error' && (
+                    <a href={mailtoHref()}
+                       className="mt-3 inline-flex items-center gap-2 rounded bg-primary px-4 py-2 text-sm text-white transition-colors duration-200 hover:bg-primary/90">
+                      <Mail size={16} />Send via email instead
+                    </a>
+                  )}
+                </div>
               </div>
             )}
 
