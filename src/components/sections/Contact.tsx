@@ -114,7 +114,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="text-slate-900 dark:text-white font-medium">Location</h4>
-                  <p className="text-slate-500 dark:text-gray-400">Ontario, Canada</p>
+                  <p className="text-slate-500 dark:text-gray-400">Ottawa, Ontario, Canada</p>
                 </div>
               </div>
 

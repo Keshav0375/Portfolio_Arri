@@ -18,7 +18,7 @@ const Experience = () => {
     return () => observer.disconnect();
   }, []);
 
-  const handleSelectExp = (id: string) => {
+  const handleSelectExp = (id: number) => {
     if (id === selectedExp) return;
     setSelectedExp(id);
     setPanelKey(k => k + 1);

@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useCallback } from 'react';
 import { ArrowDown, Terminal } from 'lucide-react';
 
 const phrases = [
-  'Software Engineer, AI',
-  'Cloud Developer',
-  'Problem Solver'
+  'AI Software Engineer',
+  'Agentic Systems Builder',
+  'LLMOps Engineer'
 ];
 
 const Hero = React.memo(() => {
@@ -81,7 +81,7 @@ const Hero = React.memo(() => {
             </div>
 
             <p className="text-slate-500 dark:text-gray-400 text-lg max-w-lg">
-              Software engineer specializing in AI — I build production LLM systems, agentic pipelines, and scalable backends that go from research prototype to real-world impact.
+              AI Software Engineer with 2 years building production agentic AI systems, multi-agent orchestration, RAG pipelines, and LLM gateway infrastructure in Python and C#/.NET across Azure, GCP, and AWS — cut LLM latency 77% and token cost 48%.
             </p>
 
             <div className="flex space-x-4 pt-4">
@@ -102,10 +102,10 @@ const Hero = React.memo(() => {
                     <code>
                       <span className="text-accent">class</span> <span className="text-primary">KeshavArri</span>:<br/>
                       &nbsp;&nbsp;&nbsp;<span className="text-accent">def</span> <span className="text-cyan-500 dark:text-secondary">__init__</span>(self):<br/>
-                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.<span className="text-cyan-500 dark:text-secondary">role</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= <span className="text-green-600 dark:text-green-400">"Software Engineer, AI"</span><br/>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.<span className="text-cyan-500 dark:text-secondary">role</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= <span className="text-green-600 dark:text-green-400">"AI Software Engineer"</span><br/>
                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.<span className="text-cyan-500 dark:text-secondary">education</span>&nbsp;&nbsp;= <span className="text-green-600 dark:text-green-400">"M.A.C. AI @ UWindsor"</span><br/>
-                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.<span className="text-cyan-500 dark:text-secondary">current</span>&nbsp;&nbsp;&nbsp;&nbsp;= <span className="text-green-600 dark:text-green-400">"Developer Intern @ Kinaxis"</span><br/>
-                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.<span className="text-cyan-500 dark:text-secondary">skills</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= [<span className="text-green-600 dark:text-green-400">"LLMs"</span>, <span className="text-green-600 dark:text-green-400">"Cloud"</span>, <span className="text-green-600 dark:text-green-400">"Agents"</span>]<br/>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.<span className="text-cyan-500 dark:text-secondary">current</span>&nbsp;&nbsp;&nbsp;&nbsp;= <span className="text-green-600 dark:text-green-400">"Developer @ Kinaxis"</span><br/>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.<span className="text-cyan-500 dark:text-secondary">skills</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= [<span className="text-green-600 dark:text-green-400">"Agents"</span>, <span className="text-green-600 dark:text-green-400">"RAG"</span>, <span className="text-green-600 dark:text-green-400">"LLMOps"</span>]<br/>
                       <br/>
                       &nbsp;&nbsp;&nbsp;<span className="text-accent">def</span> <span className="text-cyan-500 dark:text-secondary">build</span>(self):<br/>
                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className="text-accent">return</span> <span className="text-green-600 dark:text-green-400">"production AI systems"</span><br/>
