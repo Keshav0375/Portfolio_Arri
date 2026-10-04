@@ -71,6 +71,11 @@
     box-shadow: 0 0 15px rgba(124, 58, 237, 0.15);
   }
 
+  .skill-chip:hover {
+    border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+    background-color: color-mix(in srgb, var(--accent) 10%, transparent);
+  }
+
   .section-container {
     @apply max-w-7xl mx-auto px-4 py-20 sm:px-6 lg:px-8;
   }

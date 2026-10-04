@@ -1,85 +1,155 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { Bot, BrainCircuit, Gauge, Cloud, Code2, Layers, Database, LucideIcon } from 'lucide-react';
 
-const skillColumns = [
+interface SkillGroup {
+  title: string;
+  tagline: string;
+  icon: LucideIcon;
+  accent: string;
+  span?: string;
+  skills: string[];
+}
+
+// Ordered for the lg 3-column bento: [2,1] [1,2] [1,1,1]
+const skillGroups: SkillGroup[] = [
   {
-    title: 'Languages & Frameworks',
+    title: 'AI & Agents',
+    tagline: 'Multi-agent orchestration & tool use',
+    icon: Bot,
     accent: '#7c3aed',
-    accentLight: 'rgba(124,58,237,0.08)',
-    skills: ['Python', 'SQL', 'Java', 'JavaScript', 'C++', 'Bash', 'FastAPI', 'Flask', 'Django', 'Node.js', 'React', 'Pydantic'],
+    span: 'lg:col-span-2',
+    skills: ['Microsoft Agent Framework', 'OpenAI Agents SDK', 'Anthropic SDK', 'LangGraph', 'LangChain', 'MCP', 'Multi-Agent Systems', 'Tool Calling'],
   },
   {
-    title: 'AI & LLMOps',
+    title: 'LLM & RAG',
+    tagline: 'Retrieval, reasoning & evaluation',
+    icon: BrainCircuit,
     accent: '#0ea5e9',
-    accentLight: 'rgba(14,165,233,0.08)',
-    skills: ['Anthropic SDK', 'OpenAI SDK', 'LangChain', 'LangGraph', 'LiteLLM', 'LangFuse', 'Kong AI Gateway', 'MCP', 'RAG Systems', 'Agentic AI', 'Prompt Engineering'],
+    skills: ['Azure OpenAI', 'Vertex AI', 'Azure AI Search', 'pgvector', 'RAG', 'ReAct', 'LLM Evaluation'],
+  },
+  {
+    title: 'LLMOps',
+    tagline: 'Gateways, routing & observability',
+    icon: Gauge,
+    accent: '#ec4899',
+    skills: ['Kong AI Gateway', 'LiteLLM', 'LangFuse', 'OpenTelemetry', 'Datadog', 'Prompt Versioning', 'CI/CD Eval Gates'],
   },
   {
     title: 'Cloud & DevOps',
+    tagline: 'Where it ships and how',
+    icon: Cloud,
     accent: '#f59e0b',
-    accentLight: 'rgba(245,158,11,0.08)',
-    skills: ['AWS', 'Azure', 'GCP', 'Docker', 'Kubernetes', 'Terraform', 'Helm', 'GitHub Actions', 'CI/CD', 'Linux', 'PostgreSQL', 'MongoDB', 'Redis', 'Cosmos DB', 'Snowflake'],
+    span: 'lg:col-span-2',
+    skills: ['Azure', 'GCP', 'AWS', 'Kubernetes', 'Docker', 'Terraform', 'Helm', 'ArgoCD', 'GitHub Actions', 'HashiCorp Vault', 'Linux'],
+  },
+  {
+    title: 'Languages',
+    tagline: 'Daily drivers first',
+    icon: Code2,
+    accent: '#10b981',
+    skills: ['Python', 'C#', 'TypeScript', 'SQL', 'Lua', 'JavaScript', 'Java', 'Bash'],
+  },
+  {
+    title: 'Frameworks',
+    tagline: 'APIs & services',
+    icon: Layers,
+    accent: '#6366f1',
+    skills: ['FastAPI', 'ASP.NET Core', '.NET 8', 'Pydantic', 'React', 'Node.js', 'Django'],
+  },
+  {
+    title: 'Databases',
+    tagline: 'Relational, vector & cache',
+    icon: Database,
+    accent: '#14b8a6',
+    span: 'md:col-span-2 lg:col-span-1',
+    skills: ['PostgreSQL', 'Redis', 'SQLite', 'Cosmos DB', 'MongoDB', 'Snowflake'],
   },
 ];
 
-const allSkillsFlat = skillColumns.flatMap(col =>
-  col.skills.map(skill => ({ skill, accent: col.accent, accentLight: col.accentLight }))
-);
+const SkillCard = ({ group, index, visible }: { group: SkillGroup; index: number; visible: boolean }) => {
+  const Icon = group.icon;
+  const { accent } = group;
 
-const ALL_TAB = { title: 'All Skills', accent: '#7c3aed', accentLight: 'rgba(124,58,237,0.08)' };
+  return (
+    <div
+      className={`group relative flex flex-col overflow-hidden rounded-2xl border p-6
+        bg-white border-slate-200 shadow-sm
+        dark:bg-[#161616] dark:border-white/10
+        transition-all duration-500 ease-out hover:-translate-y-1
+        ${group.span ?? ''}
+        ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+      style={{
+        transitionDelay: visible ? `${index * 70}ms` : '0ms',
+        ['--accent' as string]: accent,
+      }}
+    >
+      {/* Accent glow + top rule, intensify on hover */}
+      <div
+        className="pointer-events-none absolute -top-24 -right-24 h-48 w-48 rounded-full opacity-10 blur-3xl transition-opacity duration-500 group-hover:opacity-30"
+        style={{ backgroundColor: accent }}
+      />
+      <div
+        className="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-[0.25] transition-transform duration-500 group-hover:scale-x-100"
+        style={{ background: `linear-gradient(to right, ${accent}, ${accent}00)` }}
+      />
+      <div
+        className="pointer-events-none absolute inset-0 rounded-2xl border opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        style={{ borderColor: `${accent}66`, boxShadow: `0 8px 32px -12px ${accent}55` }}
+      />
 
-const SkillBrick = ({
-  skill,
-  accent,
-  accentLight,
-  index,
-  visible,
-}: {
-  skill: string;
-  accent: string;
-  accentLight: string;
-  index: number;
-  visible: boolean;
-}) => (
-  <div
-    className={`group px-6 py-3.5 rounded-lg border border-slate-200 dark:border-white/10
-      cursor-default select-none transition-all duration-300
-      ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
-    style={{
-      transitionDelay: visible ? `${Math.min(index * 35, 500)}ms` : '0ms',
-      transitionProperty: 'opacity, transform, background-color, border-left-color',
-      borderLeftWidth: '3px',
-      borderLeftColor: `${accent}55`,
-    }}
-    onMouseEnter={e => {
-      const el = e.currentTarget as HTMLDivElement;
-      el.style.backgroundColor = accentLight;
-      el.style.borderLeftColor = accent;
-    }}
-    onMouseLeave={e => {
-      const el = e.currentTarget as HTMLDivElement;
-      el.style.backgroundColor = '';
-      el.style.borderLeftColor = `${accent}55`;
-    }}
-  >
-    <span className="text-base font-medium text-slate-700 dark:text-gray-200 tracking-wide whitespace-nowrap group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
-      {skill}
-    </span>
-  </div>
-);
+      {/* Header */}
+      <div className="relative flex items-start justify-between mb-5">
+        <div className="flex items-center gap-3.5">
+          <div
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3"
+            style={{ backgroundColor: `${accent}1a`, color: accent }}
+          >
+            <Icon size={22} strokeWidth={1.75} />
+          </div>
+          <div>
+            <h3 className="text-lg font-bold leading-tight text-slate-900 dark:text-white">{group.title}</h3>
+            <p className="text-xs text-slate-500 dark:text-gray-400 mt-0.5">{group.tagline}</p>
+          </div>
+        </div>
+        <span className="font-mono text-xs text-slate-300 dark:text-white/20 select-none">
+          {String(index + 1).padStart(2, '0')}
+        </span>
+      </div>
+
+      {/* Skills */}
+      <div className="relative flex flex-wrap gap-2">
+        {group.skills.map(skill => (
+          <span
+            key={skill}
+            className="skill-chip inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-medium cursor-default select-none
+              border-slate-200 bg-slate-50 text-slate-700
+              dark:border-white/10 dark:bg-white/[0.03] dark:text-gray-200
+              transition-colors duration-200"
+          >
+            <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: accent }} />
+            {skill}
+          </span>
+        ))}
+      </div>
+
+      <div className="relative mt-auto pt-5">
+        <span className="font-mono text-[11px] uppercase tracking-wider text-slate-400 dark:text-gray-500">
+          {group.skills.length} tools
+        </span>
+      </div>
+    </div>
+  );
+};
 
 const Skills = () => {
-  const [activeTab, setActiveTab] = useState(-1); // -1 = All Skills
-  const [displayedTab, setDisplayedTab] = useState(-1);
-  const [itemsVisible, setItemsVisible] = useState(false);
-  const [sectionVisible, setSectionVisible] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setSectionVisible(true);
-          setItemsVisible(true);
+          setVisible(true);
           observer.disconnect();
         }
       },
@@ -89,27 +159,7 @@ const Skills = () => {
     return () => observer.disconnect();
   }, []);
 
-  const handleTabChange = (index: number) => {
-    if (index === activeTab) return;
-    setItemsVisible(false);
-    setTimeout(() => {
-      setDisplayedTab(index);
-      setActiveTab(index);
-      setTimeout(() => setItemsVisible(true), 40);
-    }, 180);
-  };
-
-  const displayedSkills: { skill: string; accent: string; accentLight: string }[] =
-    displayedTab === -1
-      ? allSkillsFlat
-      : skillColumns[displayedTab].skills.map(skill => ({
-          skill,
-          accent: skillColumns[displayedTab].accent,
-          accentLight: skillColumns[displayedTab].accentLight,
-        }));
-
-  const activeAccent =
-    activeTab === -1 ? ALL_TAB.accent : skillColumns[activeTab].accent;
+  const totalSkills = skillGroups.reduce((n, g) => n + g.skills.length, 0);
 
   return (
     <section id="skills" className="py-20 relative bg-white dark:bg-[#0f0f0f]" ref={sectionRef}>
@@ -119,69 +169,28 @@ const Skills = () => {
       </div>
 
       <div className="section-container relative z-10">
-        {/* Header */}
-        <div className={`mb-12 transition-all duration-500 ${sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-          <h2 className="section-title">Core Skills</h2>
-          <p className="text-slate-500 dark:text-gray-400 mt-6 text-base">
-            Technologies I work with in production
-          </p>
+        <div className={`mb-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between transition-all duration-500 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <div>
+            <h2 className="section-title">Core Skills</h2>
+            <p className="text-slate-500 dark:text-gray-400 mt-6 text-base">
+              Technologies I work with in production
+            </p>
+          </div>
+          <div className="flex gap-6 font-mono text-sm">
+            <div>
+              <div className="text-2xl font-bold text-primary">{totalSkills}</div>
+              <div className="text-xs text-slate-400 dark:text-gray-500">technologies</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-primary">{skillGroups.length}</div>
+              <div className="text-xs text-slate-400 dark:text-gray-500">domains</div>
+            </div>
+          </div>
         </div>
 
-        {/* Tab bar */}
-        <div
-          className={`flex flex-wrap gap-2 mb-10 transition-all duration-500 ${sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-          style={{ transitionDelay: '100ms' }}
-        >
-          {/* All Skills tab */}
-          <button
-            onClick={() => handleTabChange(-1)}
-            className="px-5 py-2.5 rounded-full font-mono text-sm font-medium transition-all duration-250 focus:outline-none"
-            style={
-              activeTab === -1
-                ? { backgroundColor: ALL_TAB.accent, color: '#fff', boxShadow: `0 0 16px ${ALL_TAB.accent}55` }
-                : { border: `1.5px solid ${ALL_TAB.accent}44`, color: '' }
-            }
-          >
-            <span className={activeTab !== -1 ? 'text-slate-500 dark:text-gray-400' : ''}>
-              All Skills
-            </span>
-          </button>
-
-          {skillColumns.map((col, i) => (
-            <button
-              key={col.title}
-              onClick={() => handleTabChange(i)}
-              className="px-5 py-2.5 rounded-full font-mono text-sm font-medium transition-all duration-250 focus:outline-none"
-              style={
-                activeTab === i
-                  ? { backgroundColor: col.accent, color: '#fff', boxShadow: `0 0 16px ${col.accent}55` }
-                  : { border: `1.5px solid ${col.accent}44` }
-              }
-            >
-              <span className={activeTab !== i ? 'text-slate-500 dark:text-gray-400' : ''}>
-                {col.title}
-              </span>
-            </button>
-          ))}
-        </div>
-
-        {/* Thin accent rule */}
-        <div
-          className={`h-px w-full mb-8 transition-all duration-500 ${sectionVisible ? 'opacity-100' : 'opacity-0'}`}
-          style={{ background: `linear-gradient(to right, ${activeAccent}66, transparent)`, transitionDelay: '180ms' }}
-        />
-
-        {/* Skills — horizontal flex wrap */}
-        <div className="flex flex-wrap gap-2.5">
-          {displayedSkills.map(({ skill, accent, accentLight }, i) => (
-            <SkillBrick
-              key={`${displayedTab}-${skill}`}
-              skill={skill}
-              accent={accent}
-              accentLight={accentLight}
-              index={i}
-              visible={itemsVisible}
-            />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {skillGroups.map((group, i) => (
+            <SkillCard key={group.title} group={group} index={i} visible={visible} />
           ))}
         </div>
       </div>

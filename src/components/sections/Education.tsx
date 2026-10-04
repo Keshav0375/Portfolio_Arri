@@ -27,10 +27,10 @@ const Education = () => {
             </div>
 
             <h3 className="text-slate-900 dark:text-white font-bold text-lg leading-tight mb-1">
-              B.Tech Computer Science & Engineering
+              Bachelor of Computer Science & Technology
             </h3>
             <p className="text-violet-500 dark:text-violet-400 text-sm font-medium mb-2">
-              Guru Nanak Dev Engineering College
+              Guru Nanak Dev Engineering College (GNDEC)
             </p>
             <div className="flex items-center text-slate-400 dark:text-gray-500 text-xs mb-5">
               <MapPin size={11} className="mr-1 shrink-0" />
@@ -58,7 +58,7 @@ const Education = () => {
           <div className="glass-card neon-border bg-white dark:bg-[#1a1a1a]/80 flex flex-col relative group hover:shadow-xl transition-all duration-300">
             <div className="absolute -top-3 right-5">
               <span className="bg-primary text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg shadow-primary/30">
-                Current
+                Latest
               </span>
             </div>
 
@@ -67,7 +67,7 @@ const Education = () => {
                 🍁
               </div>
               <span className="text-xs font-mono text-primary bg-primary/10 px-3 py-1 rounded-full border border-primary/20">
-                Jan 2025 – Apr 2026
+                Jan 2025 – Aug 2026
               </span>
             </div>
 
@@ -86,8 +86,8 @@ const Education = () => {
             </div>
 
             <p className="text-slate-600 dark:text-gray-300 text-sm leading-relaxed mb-5 flex-1">
-              Relocated to Canada to go all-in on AI — advanced ML, autonomous systems, LLMOps, and large-scale distributed computing. Not just studying it:{' '}
-              <span className="text-slate-900 dark:text-white font-semibold">concurrently building production AI at Kinaxis</span> while in class.
+              Relocated to Canada to go all-in on AI — advanced ML, autonomous systems, LLMOps, and large-scale distributed computing. Not just studied it:{' '}
+              <span className="text-slate-900 dark:text-white font-semibold">shipped production AI at Kinaxis</span> alongside the degree.
             </p>
 
             <div className="flex flex-wrap gap-2 mt-auto">

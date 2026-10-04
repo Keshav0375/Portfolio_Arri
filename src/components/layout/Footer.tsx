@@ -13,7 +13,7 @@ const Footer = () => {
               <span className="neon-text">Keshav</span><span className="text-slate-900 dark:text-white">Arri</span><span className="text-primary">.</span>
             </h3>
             <p className="text-slate-500 dark:text-gray-400 mb-4">
-              AI Software Engineer building production LLM systems, agentic pipelines, and scalable backends.
+              AI Software Engineer building production agentic systems, RAG pipelines, and LLM gateway infrastructure.
             </p>
             <div className="flex space-x-4 mt-auto">
               <a href="https://github.com/Keshav0375" target="_blank" rel="noopener noreferrer"
@@ -52,7 +52,7 @@ const Footer = () => {
               keshavk5655@gmail.com
             </p>
             <p className="text-slate-500 dark:text-gray-400">
-              Based in Ontario, Canada
+              Based in Ottawa, Ontario, Canada
             </p>
           </div>
         </div>
